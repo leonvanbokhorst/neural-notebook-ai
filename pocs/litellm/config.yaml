@@ -1,7 +1,7 @@
 # Configuration for LiteLLM POC
 
 # Basic Settings
-name: "litellm_poc"
+name: "litellm"
 version: "0.1.0"
 description: "Demonstration of using LiteLLM with multiple LLM providers"
 
