@@ -2,7 +2,7 @@
 
 This POC demonstrates the usage of LiteLLM to interact with multiple LLM providers through a unified interface.
 
-Read the [Researching the LiteLLM Project](Researching-the-LiteLLM-Project.md) for more information.
+Read the [Researching the LiteLLM Project](researching-the-litellm-project.md) for more information.
 
 ## Features
 
