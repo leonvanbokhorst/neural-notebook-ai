@@ -38,7 +38,3 @@ This project follows strict development standards including:
 ## Getting Started
 
 Each POC contains its own README with specific setup instructions and requirements.
-
-## License
-
-[License details to be added]
