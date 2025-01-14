@@ -1,0 +1,37 @@
+# Configuration Template for POC Demonstrations
+
+# Basic Settings
+name: "poc_name"
+version: "0.1.0"
+description: "Brief description of the POC"
+
+# Paths
+data_dir: "data/"
+output_dir: "outputs/"
+model_dir: "models/"
+
+# Experiment Parameters
+parameters:
+  param1: "example"
+  param2: 42
+  learning_rate: 0.001
+  batch_size: 32
+  epochs: 10
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "poc.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Resource Management
+resources:
+  gpu_enabled: false
+  num_workers: 4
+  memory_limit: "8GB"
+
+# Optional Components
+features:
+  visualization: true
+  save_checkpoints: true
+  use_wandb: false
