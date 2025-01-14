@@ -1,0 +1,30 @@
+# Configuration for LiteLLM POC
+
+# Basic Settings
+name: "litellm_poc"
+version: "0.1.0"
+description: "Demonstration of using LiteLLM with multiple LLM providers"
+
+# LLM Configuration
+models:
+  - "gpt-4o-mini"
+  - "ollama/llama3.2"
+
+
+# API Keys (not needed for Ollama)
+api_keys: {}
+
+# LLM Parameters
+max_tokens: 100
+prompt_template: "Explain the concept of neural networks in one sentence."
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "litellm_demo.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Optional Features
+features:
+  save_responses: true
+  compare_outputs: true
