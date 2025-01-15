@@ -112,7 +112,7 @@ def get_device(device: Optional[str] = None) -> str:
 
     if torch.cuda.is_available():
         return "cuda"
-    elif torch.backends.mps.is_available():
+    elif torch.backends.mps.is_available() and torch.backends.mps.is_built():
         return "mps"
     return "cpu"
 
