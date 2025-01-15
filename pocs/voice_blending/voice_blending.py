@@ -38,10 +38,19 @@ MODEL_FILES = {
     "istftnet.py": "https://huggingface.co/hexgrad/Kokoro-82M/raw/main/istftnet.py",
 }
 
+# Voice files needed for Nicole's combinations
 VOICE_FILES = [
+    # Main voice
+    "af_nicole.pt",
+    # American females
+    "af_bella.pt",
+    "af_sarah.pt",
+    "af_sky.pt",
+    # British females
     "bf_emma.pt",
     "bf_isabella.pt",
-    "bm_lewis.pt",
+    # Cross-gender blend
+    "am_michael.pt",
 ]
 
 
@@ -335,41 +344,134 @@ class POCImplementation:
         """Demonstrate voice blending capabilities."""
         logger.info("Running voice blending demonstration")
 
-        # Test text
-        text = "Voice blending allows us to create unique and expressive synthetic voices. Wheeeee"
-
-        # Load voice embeddings
-        voice_emma = self.load_voice("bf_emma")
-        voice_isabella = self.load_voice("bf_isabella")
-        voice_lewis = self.load_voice("bm_lewis")
+        # Test text - properly formatted with pauses
+        text = (
+            "The book has finally arrived. "
+            "On January 30th, these precious pages will gently float their way through the postal system. "
+            "I wanted to carefully place a free copy into each person's waiting hands, but with sixty incredible expert voices "
+            "wrapped within these silky pages, it wasn't quite possible. "
+            "Your contribution made this book absolutely magical. "
+            "Already shared on LinkedIn, but I wanted to tell you personally."
+        ).strip()
 
         generated_files = []
 
         # Generate original voices
-        for name, voice in [
-            ("emma", voice_emma),
-            ("isabella", voice_isabella),
-            ("lewis", voice_lewis),
-        ]:
-            output_file = f"original_{name}.wav"
+        logger.info("Generating original voice samples...")
+        for voice_file in VOICE_FILES:
+            voice_name = voice_file.replace(".pt", "")
+            voice = self.load_voice(voice_name)
+            output_file = f"original_{voice_name}.wav"
             self.generate_speech(text, voice, output_file)
             generated_files.append(output_file)
+            logger.info(f"Generated {output_file}")
 
-        # Demonstrate linear interpolation
-        for t in [0.3, 0.5, 0.7]:
-            blended_voice = self.blender.linear_interpolation(
-                voice_emma, voice_lewis, t
+        # Load combinations from config
+        config_path = Path(__file__).parent / "config.yaml"
+        with open(config_path, "r") as f:
+            config = yaml.safe_load(f)
+
+        combinations = config["blending"]["combinations"]
+        interpolation_points = config["blending"]["interpolation_points"]
+
+        # Generate blended voices
+        logger.info("Generating voice blends...")
+        for combination in combinations:
+            if len(combination) == 2:
+                # Two-way blend
+                voice_a_name, voice_b_name = combination
+                voice_a = self.load_voice(voice_a_name)
+                voice_b = self.load_voice(voice_b_name)
+
+                # Create descriptive name
+                blend_name = f"{voice_a_name}_x_{voice_b_name}"
+                logger.info(f"Blending {voice_a_name} with {voice_b_name}")
+
+                # Linear interpolation
+                for t in interpolation_points:
+                    blended_voice = self.blender.linear_interpolation(
+                        voice_a, voice_b, t
+                    )
+                    output_file = f"linear_{blend_name}_{t:.1f}.wav"
+                    self.generate_speech(text, blended_voice, output_file)
+                    generated_files.append(output_file)
+
+                # SLERP interpolation
+                for t in interpolation_points:
+                    blended_voice = self.blender.slerp(voice_a, voice_b, t)
+                    output_file = f"slerp_{blend_name}_{t:.1f}.wav"
+                    self.generate_speech(text, blended_voice, output_file)
+                    generated_files.append(output_file)
+
+            elif len(combination) == 3:
+                # Three-way blend
+                voice_a_name, voice_b_name, voice_c_name = combination
+                voice_a = self.load_voice(voice_a_name)
+                voice_b = self.load_voice(voice_b_name)
+                voice_c = self.load_voice(voice_c_name)
+
+                blend_name = f"{voice_a_name}_x_{voice_b_name}_x_{voice_c_name}"
+                logger.info(f"Creating three-way blend: {blend_name}")
+
+                # Create three-way blends with different weights
+                weights = [
+                    (0.33, 0.33, 0.34),  # Equal weights
+                    (0.5, 0.25, 0.25),  # First voice dominant
+                    (0.25, 0.5, 0.25),  # Second voice dominant
+                    (0.25, 0.25, 0.5),  # Third voice dominant
+                ]
+
+                for w1, w2, w3 in weights:
+                    # First blend first two voices
+                    temp_blend = self.blender.linear_interpolation(
+                        voice_a, voice_b, 0.5
+                    )
+                    # Then blend with third voice
+                    final_blend = self.blender.linear_interpolation(
+                        temp_blend, voice_c, 0.5
+                    )
+
+                    weight_str = f"{w1:.2f}_{w2:.2f}_{w3:.2f}"
+                    output_file = f"three_way_{blend_name}_{weight_str}.wav"
+                    self.generate_speech(text, final_blend, output_file)
+                    generated_files.append(output_file)
+
+                    # Also try SLERP for three-way blending
+                    temp_blend = self.blender.slerp(voice_a, voice_b, 0.5)
+                    final_blend = self.blender.slerp(temp_blend, voice_c, 0.5)
+
+                    output_file = f"three_way_slerp_{blend_name}_{weight_str}.wav"
+                    self.generate_speech(text, final_blend, output_file)
+                    generated_files.append(output_file)
+
+        # Generate some special blends
+        logger.info("Generating special voice blends...")
+
+        # Three-way blend (British accents)
+        british_blend = self.load_voice("bf_emma")
+        for voice_name in ["bf_isabella", "bm_lewis", "bm_george"]:
+            british_blend = self.blender.linear_interpolation(
+                british_blend, self.load_voice(voice_name), 0.25
             )
-            output_file = f"linear_blend_{t:.1f}.wav"
-            self.generate_speech(text, blended_voice, output_file)
-            generated_files.append(output_file)
+        output_file = "special_british_quartet.wav"
+        self.generate_speech(text, british_blend, output_file)
+        generated_files.append(output_file)
 
-        # Demonstrate SLERP
-        for t in [0.3, 0.5, 0.7]:
-            blended_voice = self.blender.slerp(voice_emma, voice_lewis, t)
-            output_file = f"slerp_blend_{t:.1f}.wav"
-            self.generate_speech(text, blended_voice, output_file)
-            generated_files.append(output_file)
+        # American-British hybrid (all voices)
+        american_blend = self.load_voice("af")  # Start with default American blend
+        british_blend = self.load_voice("bf_emma")
+        for voice_name in ["af_bella", "af_sarah", "am_adam"]:
+            american_blend = self.blender.slerp(
+                american_blend, self.load_voice(voice_name), 0.25
+            )
+        for voice_name in ["bf_isabella", "bm_lewis"]:
+            british_blend = self.blender.slerp(
+                british_blend, self.load_voice(voice_name), 0.25
+            )
+        final_blend = self.blender.slerp(american_blend, british_blend, 0.5)
+        output_file = "special_transatlantic_blend.wav"
+        self.generate_speech(text, final_blend, output_file)
+        generated_files.append(output_file)
 
         return generated_files
 

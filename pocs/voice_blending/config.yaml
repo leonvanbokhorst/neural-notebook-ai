@@ -9,10 +9,17 @@ model:
 # Voice settings
 voices:
   directory: "voices"       # Directory containing voice embedding files
-  available:               # List of available voice embeddings
+  # Available voices by category
+  american_female:
+    - "af_nicole"
+    - "af_bella"
+    - "af_sarah"
+    - "af_sky"
+  british_female:
     - "bf_emma"
     - "bf_isabella"
-    - "bm_lewis"
+  american_male:
+    - "am_michael"
 
 # Output settings
 output:
@@ -25,6 +32,19 @@ blending:
   methods:                               # Available blending methods
     - "linear"
     - "slerp"
+  combinations:                          # Voice combinations to demonstrate
+    # Nicole with American females
+    - ["af_nicole", "af_bella"]         # Nicole with Bella
+    - ["af_nicole", "af_sarah"]         # Nicole with Sarah
+    - ["af_nicole", "af_sky"]           # Nicole with Sky
+    # Nicole with British females
+    - ["af_nicole", "bf_emma"]          # Nicole with Emma
+    - ["af_nicole", "bf_isabella"]      # Nicole with Isabella
+    # Nicole cross-gender blend
+    - ["af_nicole", "am_michael"]       # Nicole with Michael
+    # Special three-way blends
+    - ["af_nicole", "af_sky", "bf_emma"]    # American-British female blend
+    - ["af_nicole", "af_bella", "af_sarah"] # All-American female blend
 
 # Logging configuration
 logging:
