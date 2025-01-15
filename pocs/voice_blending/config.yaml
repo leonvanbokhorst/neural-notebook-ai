@@ -1,0 +1,32 @@
+# Voice Blending POC Configuration
+
+# Model settings
+model:
+  path: "kokoro-v0_19.pth"  # Path to the Kokoro model weights
+  sample_rate: 24000        # Audio sample rate in Hz
+  device: "cpu"            # "cpu", "cuda", or "mps" (for Apple Silicon)
+
+# Voice settings
+voices:
+  directory: "voices"       # Directory containing voice embedding files
+  available:               # List of available voice embeddings
+    - "bf_emma"
+    - "bf_isabella"
+    - "bm_lewis"
+
+# Output settings
+output:
+  directory: "output"      # Directory for generated audio files
+  format: "wav"           # Output audio format
+
+# Blending parameters
+blending:
+  interpolation_points: [0.3, 0.5, 0.7]  # Points for voice interpolation
+  methods:                               # Available blending methods
+    - "linear"
+    - "slerp"
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

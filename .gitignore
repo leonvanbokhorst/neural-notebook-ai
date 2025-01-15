@@ -46,14 +46,12 @@ ENV/
 *.swp
 *.swo
 
-# Project specific
-models/
-*.pt
-*.pth
-*.ckpt
-*.png
-
 
 # Logs
 *.log
 logs/
+
+# Voice Blending POC
+pocs/voice_blending/models/
+pocs/voice_blending/voices/
+pocs/voice_blending/output/
