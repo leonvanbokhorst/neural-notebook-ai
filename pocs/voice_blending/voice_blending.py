@@ -332,7 +332,7 @@ class POCImplementation:
 
         # Convert to numpy array and normalize
         audio_np = np.array(audio, dtype=np.float32)
-        audio_int16 = (audio_np * 32767).astype(np.int16)
+        audio_int16 = np.clip(audio_np * 32767, -32768, 32767).astype(np.int16)
 
         # Save to WAV file
         output_path = self.base_dir / self.config.output_dir / output_file
