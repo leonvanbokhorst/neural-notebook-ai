@@ -4,6 +4,15 @@ A collection of proof-of-concepts (POCs) exploring AI agent architectures, LLM i
 
 ## Proof of Concepts
 
+### Voice Blending (pocs/voice_blending)
+
+A demonstration of voice blending techniques using Kokoro TTS, featuring:
+
+- Voice embedding manipulation and blending
+- Linear and spherical interpolation (SLERP)
+- Configurable voice generation
+- Audio sample generation
+
 ### LiteLLM Integration (pocs/litellm)
 
 A demonstration of using LiteLLM to interact with various LLM models, particularly focusing on Ollama integration. Features:
