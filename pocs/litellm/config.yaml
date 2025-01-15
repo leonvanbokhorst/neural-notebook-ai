@@ -7,16 +7,17 @@ description: "Demonstration of using LiteLLM with multiple LLM providers"
 
 # LLM Configuration
 models:
-  - "gpt-4o-mini"
-  - "ollama/llama3.2"
+  # - "gpt-4o-mini"
+  # - "ollama/llama3.2"
+  - "deepseek/deepseek-chat"
 
 
 # API Keys (not needed for Ollama)
 api_keys: {}
 
 # LLM Parameters
-max_tokens: 100
-prompt_template: "Explain the concept of neural networks in one sentence."
+max_tokens: 250
+prompt_template: "Explain the concept of neural networks in one paragraph."
 
 # Logging Configuration
 logging:
