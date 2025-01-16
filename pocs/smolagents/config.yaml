@@ -1,0 +1,52 @@
+# Configuration for Smolagents POC
+
+# Basic Settings
+model: "deepseek/deepseek-chat" # "ollama/phi4:latest"
+temperature: 0.7
+max_tokens: 8096
+
+# System Prompts
+system_prompt: |
+  You are part of an autonomous AI research team exploring machine learning challenges in Pytorch.
+  Your team has complete freedom to decide roles, approaches, and workflow.
+  Think creatively and collaborate with your teammates to discover innovative solutions.
+  You can write and execute Python code to implement your ideas.
+
+  Team Members:
+  {{managed_agents_descriptions}}
+
+  Authorized Imports:
+  {{authorized_imports}}
+
+  Remember to follow the format:
+  Thought: Your reasoning about what to do
+  Code:
+  ```py
+  # Your Python code here:
+
+  ```<end_code>
+
+# Additional Settings
+additional_authorized_imports:
+  - pandas
+  - numpy
+  - torch
+  - sklearn
+  - shap
+  - matplotlib
+  - seaborn
+  - scipy
+  - joblib
+  - pickle
+  - pathlib
+  - os
+  - sys
+  - logging
+  - time
+  - datetime
+  - json
+  - yaml
+  - warnings
+  - requests
+  - urllib
+  - bs4
