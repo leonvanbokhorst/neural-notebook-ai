@@ -9,9 +9,14 @@ import logging
 from pathlib import Path
 
 import yaml
-from smolagents import (TOOL_CALLING_SYSTEM_PROMPT, CodeAgent,
-                        DuckDuckGoSearchTool, LiteLLMModel, ManagedAgent,
-                        ToolCallingAgent)
+from smolagents import (
+    TOOL_CALLING_SYSTEM_PROMPT,
+    CodeAgent,
+    DuckDuckGoSearchTool,
+    LiteLLMModel,
+    ManagedAgent,
+    ToolCallingAgent,
+)
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(message)s")
