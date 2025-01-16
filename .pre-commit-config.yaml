@@ -12,13 +12,3 @@ repos:
     hooks:
     -   id: black
 
--   repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-    -   id: isort
-
-# Temporarily disabled for development
-# -   repo: https://github.com/pycqa/flake8
-#     rev: 7.0.0
-#     hooks:
-#     -   id: flake8
