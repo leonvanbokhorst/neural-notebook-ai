@@ -227,8 +227,8 @@ class AsciiArtGenerator(nn.Module):
 
 # Constants
 NUM_EPOCHS = 2000  # Fewer epochs since we have more data
-BATCH_SIZE = 16  # Smaller batch size
-LEARNING_RATE = 0.001  # Lower learning rate for stability
+BATCH_SIZE = 4  # Smaller batch size
+LEARNING_RATE = 0.0001  # Lower learning rate for stability
 
 # Create dataset and dataloaders with augmentation
 dataset = AsciiDigitDataset(augment=True)
@@ -249,14 +249,14 @@ optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE, weight_decay=0.001
 
 # Use simpler scheduler
 scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer, mode="min", factor=0.5, patience=50, verbose=True
+    optimizer, mode="min", factor=0.5, patience=100, verbose=True
 )
 
 # Training loop with validation
 best_val_loss = float("inf")
 train_losses = []
 val_losses = []
-patience = 200  # Early stopping patience
+patience = 100  # Early stopping patience
 no_improve = 0
 
 # Progress bar for epochs

@@ -1,6 +1,5 @@
 # 🚀 RESEARCHERS ARE GO
 
-
 To address the user's request, I'll provide a complete solution for creating a neural network in PyTorch that takes a single number (0 to 9) as input and outputs a 5x5 ASCII art representation of that number. This solution avoids the use of `super()` and other restricted functions, ensuring compatibility with the execution environment.
 
 ---
@@ -158,4 +157,5 @@ def generate_ascii_art(digit):
     ascii_art = binary_output.squeeze(0).numpy()
 
     # Display the ASCII art
-    print(f"Generated ASCII art
+    print(f"Generated ASCII art: {ascii_art}")
+```
