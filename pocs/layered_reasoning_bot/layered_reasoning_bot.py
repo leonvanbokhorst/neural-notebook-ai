@@ -21,7 +21,7 @@ from config_types import ModelConfig, StrategyConfig, MemoryConfig, BotConfig
 
 # Configure logging
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.ERROR,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
@@ -125,12 +125,17 @@ class LayeredReasoningBot:
         Context: {self.memory.get_context()}
         
         Give a quick analysis covering:
-        1. Main intent (2-3 sentence)
+        1. Main intent (1-2 sentence)
         2. Emotional tone (1-2 words)
         3. Key topics (2-3 keywords)
-        4. Hidden meaning/assumptions (4-5 sentence)
+        4. Personality (1-3 words)
+        5. Hidden meaning/assumptions (1-2 sentence)
+        6. Roleplay elements (if any):
+           - Assumed identity/relationship
+           - Shared context clues
+           - Personal references
         
-        Keep it short and conversational. No formal headers or sections needed."""
+        Keep it short and human-like conversational. No formal headers or sections needed."""
 
         # Get streaming response for analysis
         response_stream = self._call_model(
@@ -147,7 +152,7 @@ class LayeredReasoningBot:
         )
 
         # Log the strategy selection probabilities
-        logger.debug(f"Strategy probabilities: {probabilities}")
+        logger.error(f"Strategy probabilities: {probabilities}")
 
         return strategy
 
@@ -186,6 +191,11 @@ class LayeredReasoningBot:
         2. Keep the response natural and conversational
         3. Make it contextually appropriate
         4. Focus on engaging with the user's message
+        5. If roleplay elements are present:
+           - Stay in character consistently
+           - Maintain the established relationship dynamic
+           - Use appropriate personal references
+           - Keep shared context in mind
         
         Just give the response directly, no meta-text or explanations."""
 
