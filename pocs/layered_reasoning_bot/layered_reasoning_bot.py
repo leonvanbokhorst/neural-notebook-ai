@@ -116,8 +116,12 @@ class ConversationMemory:
         for interaction in self.history[
             -3:
         ]:  # Last 3 interactions for immediate context
-            context.append(f"User: {interaction['user_input']}")
-            context.append(f"Assistant: {interaction['bot_response']}")
+            context.extend(
+                (
+                    f"User: {interaction['user_input']}",
+                    f"Assistant: {interaction['bot_response']}",
+                )
+            )
         return "\n".join(context)
 
 
@@ -147,9 +151,7 @@ class LayeredReasoningBot:
                 stream=stream,
             )
 
-            if stream:
-                return response
-            return response.choices[0].message.content
+            return response if stream else response.choices[0].message.content
         except Exception as e:
             logger.error(f"Error calling LiteLLM: {str(e)}")
             raise
@@ -165,8 +167,7 @@ class LayeredReasoningBot:
             if hasattr(chunk.choices[0], "delta") and hasattr(
                 chunk.choices[0].delta, "content"
             ):
-                content = chunk.choices[0].delta.content
-                if content:
+                if content := chunk.choices[0].delta.content:
                     print(content, end="", flush=True)
                     full_response.append(content)
 
@@ -192,8 +193,6 @@ class LayeredReasoningBot:
             prompt, self.config.models["intent_recognition"], stream=True
         )
 
-        # Stream and collect the analysis
-        print("\nAnalyzing...")
         analysis = self._stream_to_console(response_stream, prefix="Intent")
         return {"raw_analysis": analysis}
 
@@ -204,7 +203,7 @@ class LayeredReasoningBot:
         )
 
         # Log the strategy selection probabilities
-        logger.info(f"Strategy probabilities: {probabilities}")
+        logger.debug(f"Strategy probabilities: {probabilities}")
 
         return strategy
 
