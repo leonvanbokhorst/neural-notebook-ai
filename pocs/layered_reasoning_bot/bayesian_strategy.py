@@ -13,6 +13,7 @@ import numpy as np
 import json
 from typing import Dict, List, Optional, Tuple, Any
 from litellm import completion
+from config_types import ModelConfig
 
 
 @dataclass
@@ -29,9 +30,10 @@ class IntentFeatures:
 class BayesianStrategySelector:
     """Bayesian model for selecting optimal response strategies."""
 
-    def __init__(self, strategy_options: List[str]):
+    def __init__(self, strategy_options: List[str], model_config: ModelConfig):
         self.strategies = strategy_options
         self.n_strategies = len(strategy_options)
+        self.model_config = model_config
 
         # Initialize strategy priors (uniform distribution)
         self.priors = np.ones(self.n_strategies) / self.n_strategies
@@ -101,10 +103,10 @@ Only respond with the JSON, no other text."""
 
         try:
             response = completion(
-                model="gpt-4o-mini",
+                model=self.model_config.model_name,
                 messages=[{"role": "user", "content": prompt}],
-                temperature=0.1,  # Low temperature for consistent scoring
-                max_tokens=150,
+                temperature=self.model_config.temperature,
+                max_tokens=self.model_config.max_tokens,
             )
 
             # Extract and parse JSON from response

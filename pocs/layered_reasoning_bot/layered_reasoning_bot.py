@@ -17,6 +17,7 @@ import yaml
 from litellm import completion
 from tenacity import retry, stop_after_attempt, wait_exponential
 from bayesian_strategy import BayesianStrategySelector
+from config_types import ModelConfig, StrategyConfig, MemoryConfig, BotConfig
 
 # Configure logging
 logging.basicConfig(
@@ -27,64 +28,6 @@ logger = logging.getLogger(__name__)
 
 # Get the directory containing this script
 SCRIPT_DIR = Path(__file__).parent.absolute()
-
-
-@dataclass
-class ModelConfig:
-    """Configuration for language models."""
-
-    model_name: str
-    temperature: float
-    max_tokens: int
-    tone_matching: bool = False
-
-
-@dataclass
-class StrategyConfig:
-    """Configuration for strategy formation."""
-
-    decision_method: str
-    confidence_threshold: float
-    strategy_options: List[str]
-
-
-@dataclass
-class MemoryConfig:
-    """Configuration for conversation memory."""
-
-    conversation_history_length: int
-    episodic_memory_enabled: bool
-    memory_persistence: bool
-
-
-@dataclass
-class BotConfig:
-    """Main configuration for the bot."""
-
-    models: Dict[str, ModelConfig]
-    strategy: StrategyConfig
-    memory: MemoryConfig
-    features: Dict[str, bool]
-
-    @classmethod
-    def from_yaml(cls, config_path: str) -> "BotConfig":
-        """Load configuration from YAML file."""
-        with open(config_path, "r") as f:
-            config_dict = yaml.safe_load(f)
-
-        models = {
-            "intent_recognition": ModelConfig(
-                **config_dict["models"]["intent_recognition"]
-            ),
-            "response_generation": ModelConfig(
-                **config_dict["models"]["response_generation"]
-            ),
-        }
-        strategy = StrategyConfig(**config_dict["models"]["strategy_formation"])
-        memory = MemoryConfig(**config_dict["memory"])
-        features = config_dict["features"]
-
-        return cls(models=models, strategy=strategy, memory=memory, features=features)
 
 
 class ConversationMemory:
@@ -132,7 +75,8 @@ class LayeredReasoningBot:
         self.config = BotConfig.from_yaml(config_path)
         self.memory = ConversationMemory(self.config.memory)
         self.strategy_selector = BayesianStrategySelector(
-            self.config.strategy.strategy_options
+            self.config.strategy.strategy_options,
+            self.config.models["feature_extraction"],
         )
 
     @retry(
@@ -181,10 +125,10 @@ class LayeredReasoningBot:
         Context: {self.memory.get_context()}
         
         Give a quick analysis covering:
-        1. Main intent (1 sentence)
+        1. Main intent (2-3 sentence)
         2. Emotional tone (1-2 words)
         3. Key topics (2-3 keywords)
-        4. Hidden meaning/assumptions (1 sentence)
+        4. Hidden meaning/assumptions (4-5 sentence)
         
         Keep it short and conversational. No formal headers or sections needed."""
 
@@ -232,16 +176,18 @@ class LayeredReasoningBot:
         self, user_input: str, intent_analysis: Dict[str, Any], strategy: str
     ) -> str:
         """Generate the final response using the chosen strategy."""
-        prompt = f"""Generate a response using the following strategy: {strategy}
+        prompt = f"""Generate a natural, conversational response using this strategy: {strategy}
         User Input: {user_input}
         Intent Analysis: {intent_analysis['raw_analysis']}
         Context: {self.memory.get_context()}
         
-        The response should be:
-        1. Aligned with the chosen strategy
-        2. Natural and conversational
-        3. Contextually appropriate
-        """
+        Requirements:
+        1. DO NOT mention or refer to the strategy in your response
+        2. Keep the response natural and conversational
+        3. Make it contextually appropriate
+        4. Focus on engaging with the user's message
+        
+        Just give the response directly, no meta-text or explanations."""
 
         # Get streaming response
         response_stream = self._call_model(
