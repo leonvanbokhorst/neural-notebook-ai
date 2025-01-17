@@ -346,12 +346,9 @@ class POCImplementation:
 
         # Test text - properly formatted with pauses
         text = (
-            "The book has finally arrived. "
-            "On January 30th, these precious pages will gently float their way through the postal system. "
-            "I wanted to carefully place a free copy into each person's waiting hands, but with sixty incredible expert voices "
-            "wrapped within these silky pages, it wasn't quite possible. "
-            "Your contribution made this book absolutely magical. "
-            "Already shared on LinkedIn, but I wanted to tell you personally."
+            "As the afternoon stretched into evening, the group worked seamlessly together. Ice waded into the stream, his silver hair catching the fading sunlight as he crouched low, waiting for the perfect moment to strike with his makeshift spear. Anna crouched by the fire pit, her movements deft as she arranged the kindling, coaxing the first flickers of flame to life. Cry sat nearby with the small bag of herbs and spices they'd salvaged from their journey, carefully measuring out just enough to season the fish. "
+            'Ice let out a triumphant cheer as he skewered a large trout and held it up. "Dinner is served!" he called, his voice ringing out across the clearing. '
+            'Anna glanced up, smirking. "You caught one fish, Lewes. We\'re going to need at least two more if you want to call it dinner."'
         ).strip()
 
         generated_files = []

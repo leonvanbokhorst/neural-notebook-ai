@@ -1,0 +1,48 @@
+name: "layered_reasoning_bot"
+version: "0.1.0"
+description: "A chatbot with layered reasoning capabilities for enhanced understanding and response generation"
+
+# Paths
+data_dir: "data/"
+output_dir: "outputs/"
+model_dir: "models/"
+
+# Model Configuration
+models:
+  intent_recognition:
+    model_name: "deepseek/deepseek-chat"
+    temperature: 0.7
+    max_tokens: 500
+  
+  strategy_formation:
+    decision_method: "bayesian"  # Options: rule_based, bayesian, reinforcement
+    confidence_threshold: 0.7
+    strategy_options:
+      - factual_explanation
+      - clarifying_question
+      - example_based
+      - reframing
+  
+  response_generation:
+    model_name: "deepseek/deepseek-chat"
+    temperature: 0.8
+    max_tokens: 500
+    tone_matching: true
+
+# Memory Configuration
+memory:
+  conversation_history_length: 10
+  episodic_memory_enabled: true
+  memory_persistence: true
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "bot.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Features
+features:
+  xai_enabled: true
+  feedback_collection: true
+  goal_tracking: true 

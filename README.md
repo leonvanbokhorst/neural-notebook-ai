@@ -6,12 +6,34 @@ A collection of proof-of-concepts (POCs) exploring AI agent architectures, LLM i
 
 ### Voice Blending (pocs/voice_blending)
 
-A demonstration of voice blending techniques using Kokoro TTS, featuring:
+A sophisticated voice synthesis system using Kokoro TTS that demonstrates advanced voice blending capabilities:
 
-- Voice embedding manipulation and blending
-- Linear and spherical interpolation (SLERP)
-- Configurable voice generation
-- Audio sample generation
+- **Voice Embedding Manipulation**
+
+  - Linear interpolation between voice embeddings
+  - Spherical linear interpolation (SLERP) for natural transitions
+  - Multi-voice blending (up to 3-way combinations)
+  - Special blend combinations (e.g., British quartet, Transatlantic blend)
+
+- **Technical Features**
+
+  - Automatic model and voice file management
+  - Dynamic voice loading and caching
+  - Multi-platform support with espeak-ng integration
+  - Configurable sample rate and device selection (CPU/CUDA/MPS)
+
+- **Voice Library**
+
+  - American and British accent variations
+  - Male and female voice options
+  - Cross-gender voice blending capabilities
+  - Customizable voice combinations via YAML config
+
+- **Output Generation**
+  - High-quality 24kHz audio output
+  - WAV file generation with proper normalization
+  - Organized output directory structure
+  - Detailed logging and error handling
 
 ### LiteLLM Integration (pocs/litellm)
 
