@@ -32,7 +32,7 @@ pip install -r requirements.txt
 playwright install chromium
 
 # For Selenium (ChromeDriver)
-# ChromeDriver is automatically managed by Selenium 4+
+# ChromeDriver installation is automatically managed by Selenium 4+
 ```
 
 ## Configuration
