@@ -72,7 +72,7 @@ Each POC contains its own README with specific setup instructions and requiremen
 
 ## Made with ❤️ and Human-Machine Collaboration
 
-![Cyborg Logo](cyborg.png)
+<img src="assets/cyborg.png" alt="Cyborg Logo" width="50%"/>
 
 This project represents the fusion of human creativity and machine intelligence, working together to push the boundaries of what's possible.
 
