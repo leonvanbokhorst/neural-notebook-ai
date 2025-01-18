@@ -1,16 +1,14 @@
 """
-Bayesian Strategy Formation Module
---------------------------------
+Bayesian Strategy Selection
+-------------------------
 
-Implements Bayesian updating for response strategy selection based on:
-1. User intent analysis
-2. Historical interaction success
-3. Context-specific priors
+Implements Bayesian updating for response strategy selection.
 """
 
 from dataclasses import dataclass
 import numpy as np
 import json
+import random
 from typing import Dict, List, Optional, Tuple, Any
 from litellm import completion
 from config_types import ModelConfig
@@ -74,6 +72,37 @@ class BayesianStrategySelector:
             ]
         )
 
+        # Emotional influence weights for each strategy
+        self.emotional_weights = {
+            "factual_explanation": {
+                "positivity_bias": 0.1,  # Less affected by mood
+                "reactivity": -0.2,  # Negative impact when reactive
+                "engagement": 0.3,  # Moderate benefit from engagement
+                "empathy": 0.0,  # Not particularly empathy-dependent
+            },
+            "clarifying_question": {
+                "positivity_bias": 0.2,  # Moderate mood influence
+                "reactivity": 0.1,  # Slight benefit from reactivity
+                "engagement": 0.4,  # High benefit from engagement
+                "empathy": 0.3,  # Moderate empathy requirement
+            },
+            "example_based": {
+                "positivity_bias": 0.4,  # Strong mood influence
+                "reactivity": 0.0,  # Neutral to reactivity
+                "engagement": 0.5,  # High engagement benefit
+                "empathy": 0.4,  # High empathy requirement
+            },
+            "reframing": {
+                "positivity_bias": -0.1,  # Works better with negative mood
+                "reactivity": 0.3,  # Benefits from reactivity
+                "engagement": 0.2,  # Moderate engagement benefit
+                "empathy": 0.5,  # Highest empathy requirement
+            },
+        }
+
+        # Gut feeling influence (random bias) for each strategy
+        self.gut_feelings = np.random.uniform(-0.1, 0.1, self.n_strategies)
+
         # Interaction history for strategy effectiveness
         self.history: List[Tuple[str, float]] = []
 
@@ -91,13 +120,13 @@ Score these dimensions:
 5. Knowledge Requirement: How much domain expertise is needed? (0=general knowledge, 1=expert knowledge)
 
 Provide scores in this JSON format:
-{{
+{
     "question_likelihood": 0.0,
     "complexity": 0.0,
     "emotional_charge": 0.0,
     "clarity": 0.0,
     "knowledge_requirement": 0.0
-}}
+}
 
 Only respond with the JSON, no other text."""
 
@@ -140,24 +169,80 @@ Only respond with the JSON, no other text."""
                 "knowledge_requirement": 0.5,
             }
 
-    def extract_intent_features(self, intent_analysis: str) -> IntentFeatures:
-        """Extract numerical features from intent analysis text using LLM."""
-        # Get scores from LLM
-        scores = self._call_llm_for_features(intent_analysis)
+    def extract_intent_features(self, intent_analysis: str) -> List[float]:
+        """Extract feature vector from intent analysis."""
+        # Default feature values
+        features = [0.0] * 5  # question, complexity, emotion, clarity, knowledge
 
-        # Create features object
-        features = IntentFeatures(
-            question_likelihood=scores["question_likelihood"],
-            complexity=scores["complexity"],
-            emotional_charge=scores["emotional_charge"],
-            clarity=scores["clarity"],
-            knowledge_requirement=scores["knowledge_requirement"],
+        # Question likelihood
+        question_indicators = ["what", "why", "how", "when", "where", "who", "?"]
+        features[0] = (
+            0.8
+            if any(q in intent_analysis.lower() for q in question_indicators)
+            else 0.2
+        )
+
+        # Complexity
+        complexity_indicators = [
+            "complex",
+            "difficult",
+            "advanced",
+            "technical",
+            "detailed",
+        ]
+        features[1] = (
+            0.8
+            if any(c in intent_analysis.lower() for c in complexity_indicators)
+            else 0.3
+        )
+
+        # Emotional charge
+        emotion_words = [
+            "happy",
+            "sad",
+            "angry",
+            "excited",
+            "worried",
+            "frustrated",
+            "anxious",
+            "joyful",
+            "upset",
+            "delighted",
+            "concerned",
+        ]
+        features[2] = (
+            0.8 if any(e in intent_analysis.lower() for e in emotion_words) else 0.2
+        )
+
+        # Clarity
+        clarity_reducers = [
+            "unclear",
+            "confused",
+            "not sure",
+            "maybe",
+            "perhaps",
+            "might",
+        ]
+        features[3] = (
+            0.3 if any(c in intent_analysis.lower() for c in clarity_reducers) else 0.8
+        )
+
+        # Knowledge requirement
+        knowledge_indicators = ["explain", "understand", "know", "learn", "meaning"]
+        features[4] = (
+            0.8
+            if any(k in intent_analysis.lower() for k in knowledge_indicators)
+            else 0.3
         )
 
         return features
 
-    def compute_likelihood(self, features: IntentFeatures) -> np.ndarray:
-        """Compute likelihood of success for each strategy given features."""
+    def compute_likelihood(
+        self,
+        features: IntentFeatures,
+        emotional_influence: Optional[Dict[str, float]] = None,
+    ) -> np.ndarray:
+        """Compute likelihood of success for each strategy given features and emotional state."""
         feature_vector = np.array(
             [
                 features.question_likelihood,
@@ -171,13 +256,31 @@ Only respond with the JSON, no other text."""
         # Ensure feature vector is valid
         feature_vector = np.clip(feature_vector, 0.1, 1.0)  # Avoid zeros
 
-        # Compute weighted dot product
+        # Compute base likelihoods
         weights = np.array([0.3, 0.2, 0.2, 0.15, 0.15])  # Feature importance weights
-        likelihoods = np.dot(self.likelihood_matrix, feature_vector * weights)
+        base_likelihoods = np.dot(self.likelihood_matrix, feature_vector * weights)
+
+        # Apply emotional influence if provided
+        if emotional_influence:
+            emotional_modulation = np.zeros(self.n_strategies)
+            for i, strategy in enumerate(self.strategies):
+                weights = self.emotional_weights[strategy]
+                modulation = sum(
+                    weights[factor] * value
+                    for factor, value in emotional_influence.items()
+                )
+                emotional_modulation[i] = modulation
+
+            # Apply emotional modulation
+            base_likelihoods *= 1 + emotional_modulation
+
+        # Add gut feeling influence (random bias)
+        if random.random() < 0.3:  # 30% chance to use gut feelings
+            base_likelihoods += self.gut_feelings
 
         # Ensure valid probabilities
-        likelihoods = np.clip(likelihoods, 0.1, 1.0)  # Avoid zeros
-        return likelihoods / np.sum(likelihoods)  # Now safe to normalize
+        likelihoods = np.clip(base_likelihoods, 0.1, 1.0)
+        return likelihoods / np.sum(likelihoods)
 
     def update_priors(self, strategy_idx: int, success_score: float):
         """Update strategy priors based on observed success."""
@@ -210,27 +313,42 @@ Only respond with the JSON, no other text."""
         # Store in history
         self.history.append((self.strategies[strategy_idx], success_score))
 
-    def select_strategy(self, intent_analysis: str) -> Tuple[str, Dict[str, float]]:
-        """Select the best strategy using Bayesian inference."""
-        # Extract features from intent analysis
+        # Occasionally update gut feelings based on success
+        if random.random() < 0.2:  # 20% chance to update gut feelings
+            self.gut_feelings[strategy_idx] += (success_score - 0.5) * 0.1
+            self.gut_feelings = np.clip(self.gut_feelings, -0.2, 0.2)
+
+    def select_strategy(self, intent_analysis: str) -> Tuple[str, List[float]]:
+        """Select optimal strategy using Bayesian inference."""
+        # Extract intent features
         features = self.extract_intent_features(intent_analysis)
 
-        # Compute likelihoods
-        likelihoods = self.compute_likelihood(features)
+        # Calculate likelihoods for each strategy
+        likelihoods = np.zeros(self.n_strategies)
+        for i in range(self.n_strategies):
+            likelihood = 1.0
+            for j, feature_value in enumerate(features):
+                if feature_value > 0:
+                    likelihood *= self.likelihood_matrix[i, j]
+            likelihoods[i] = likelihood
 
-        # Compute posterior probabilities
-        posteriors = self.priors * likelihoods
-        posteriors /= np.sum(posteriors)
+        # Calculate posterior probabilities
+        posteriors = likelihoods * self.priors
+        posteriors = posteriors / np.sum(posteriors)  # Normalize
+
+        # Add gut feeling influence
+        posteriors = posteriors + self.gut_feelings
+        posteriors = np.clip(posteriors, 0.1, 0.9)  # Keep probabilities reasonable
+        posteriors = posteriors / np.sum(posteriors)  # Normalize again
 
         # Select strategy with highest posterior probability
         selected_idx = np.argmax(posteriors)
+        selected_strategy = self.strategies[selected_idx]
 
-        # Prepare probability distribution for logging
-        strategy_probabilities = {
-            strategy: float(prob) for strategy, prob in zip(self.strategies, posteriors)
-        }
+        # Convert probabilities to list for JSON serialization
+        probability_list = posteriors.tolist()
 
-        return self.strategies[selected_idx], strategy_probabilities
+        return selected_strategy, probability_list
 
     def get_strategy_insights(self) -> Dict[str, Any]:
         """Get insights about strategy performance."""
@@ -246,6 +364,9 @@ Only respond with the JSON, no other text."""
                     "avg_success": sum(strategy_uses) / len(strategy_uses),
                     "current_prior": float(
                         self.priors[self.strategies.index(strategy)]
+                    ),
+                    "gut_feeling": float(
+                        self.gut_feelings[self.strategies.index(strategy)]
                     ),
                 }
 
