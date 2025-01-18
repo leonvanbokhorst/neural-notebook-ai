@@ -4,7 +4,7 @@ To address the user's request, I'll provide a complete solution for creating a n
 
 ---
 
-### Full Solution
+## Full Solution
 
 ```python
 import torch

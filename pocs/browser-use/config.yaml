@@ -1,0 +1,33 @@
+# Configuration for Browser Automation POC
+
+name: "browser-use"
+version: "0.1.0"
+description: "Demonstrates browser automation capabilities using Selenium and Playwright"
+
+# Paths
+screenshot_dir: "pocs/browser-use/screenshots"
+
+# Experiment Parameters
+parameters:
+  url: "https://www.example.com"
+  browser_type: "playwright"  # or "selenium"
+  headless: true
+  screenshot_dir: "pocs/browser-use/screenshots"
+  wait_timeout: 10
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  file: "browser_automation.log"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Resource Management
+resources:
+  memory_limit: "2GB"
+  cleanup_screenshots: true
+
+# Optional Components
+features:
+  save_html: true
+  network_logging: true
+  performance_metrics: true 
