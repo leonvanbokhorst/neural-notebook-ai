@@ -73,3 +73,11 @@ Each POC contains its own README with specific setup instructions and requiremen
 ## License
 
 [License details to be added]
+
+## Made with ❤️ and Human-Machine Collaboration
+
+![Cyborg Logo](cyborg.png)
+
+This project represents the fusion of human creativity and machine intelligence, working together to push the boundaries of what's possible.
+
+Logo design by Chris Geene and Pieter Wels - [Welgeen Creative Studio](https://welgeen.nl/mmmlabel/)
