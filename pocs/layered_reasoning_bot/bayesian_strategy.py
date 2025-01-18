@@ -44,33 +44,33 @@ class BayesianStrategySelector:
             [
                 # question, complexity, emotion, clarity, knowledge
                 [
-                    0.9,
-                    0.2,
-                    0.1,
-                    0.9,
-                    0.8,
-                ],  # factual_explanation - high for clear, knowledge-based questions
+                    0.95,  # High for questions
+                    0.15,  # Low for complexity
+                    0.10,  # Very low for emotion
+                    0.95,  # High for clarity
+                    0.90,  # Very high for knowledge
+                ],  # factual_explanation
                 [
-                    0.9,
-                    0.6,
-                    0.4,
-                    0.3,
-                    0.5,
-                ],  # clarifying_question - high for questions, moderate complexity
+                    0.95,  # High for questions
+                    0.70,  # High for complexity
+                    0.30,  # Low for emotion
+                    0.20,  # Low for clarity
+                    0.40,  # Moderate for knowledge
+                ],  # clarifying_question
                 [
-                    0.4,
-                    0.9,
-                    0.7,
-                    0.4,
-                    0.3,
-                ],  # example_based - high for complex, emotional topics
+                    0.30,  # Low for questions
+                    0.95,  # Very high for complexity
+                    0.80,  # High for emotion
+                    0.40,  # Moderate for clarity
+                    0.20,  # Low for knowledge
+                ],  # example_based
                 [
-                    0.2,
-                    0.5,
-                    0.9,
-                    0.2,
-                    0.4,
-                ],  # reframing - high for emotional, unclear situations
+                    0.15,  # Very low for questions
+                    0.40,  # Moderate for complexity
+                    0.95,  # Very high for emotion
+                    0.15,  # Very low for clarity
+                    0.30,  # Low for knowledge
+                ],  # reframing
             ]
         )
 
@@ -184,21 +184,28 @@ Only respond with the JSON, no other text."""
         # Ensure valid success score
         success_score = max(0.1, min(1.0, success_score))
 
-        # Compute update factor (more aggressive for extreme scores)
-        update_factor = 0.5 + 0.5 * success_score
+        # More aggressive update factors
+        if success_score > 0.8:
+            update_factor = 1.5  # Strong positive reinforcement
+        elif success_score > 0.6:
+            update_factor = 1.2  # Moderate positive reinforcement
+        elif success_score < 0.4:
+            update_factor = 0.7  # Strong negative reinforcement
+        else:
+            update_factor = 0.9  # Slight negative reinforcement
 
         # Update selected strategy
         self.priors[strategy_idx] *= update_factor
 
-        # Decay other strategies slightly
-        decay = 0.95  # Slight decay for non-selected strategies
+        # Decay other strategies more aggressively
+        decay = 0.85  # Stronger decay for non-selected strategies
         for i in range(len(self.priors)):
             if i != strategy_idx:
                 self.priors[i] *= decay
 
-        # Normalize
-        self.priors = np.clip(self.priors, 0.1, 1.0)  # Ensure no zeros
-        self.priors /= np.sum(self.priors)  # Safe to normalize now
+        # Ensure no zeros and normalize
+        self.priors = np.clip(self.priors, 0.1, 1.0)
+        self.priors /= np.sum(self.priors)
 
         # Store in history
         self.history.append((self.strategies[strategy_idx], success_score))
