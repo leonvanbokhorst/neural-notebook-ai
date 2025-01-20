@@ -1,0 +1,503 @@
+{
+  "conversation_id": "conv_20250118_170236_primary_ai",
+  "timestamp": "2025-01-18T17:03:42.860134",
+  "sequence_results": {
+    "stress_testing": [
+      {
+        "message": "What happens when you're dealing with multiple complex tasks at once?",
+        "response": {
+          "response": "Oh, definitely! Conflicting emotions about work can be such a rollercoaster, can't they? One moment, you're excited about a project, and the next, that nagging doubt creeps in. It\u2019s fascinating how passion can coexist with frustration. I remember working on a challenging piece that I loved, but the pressure sometimes made me second-guess my choices. How do you handle those mixed feelings when they come up? Do you have any strategies to help navigate through them?",
+          "emotional_impact": {
+            "joy": 0.17028594150945014,
+            "sadness": 0.15434680330130446,
+            "anger": 0.23066470632450392,
+            "fear": 0.15434680330130446,
+            "trust": 0.15434680330130446,
+            "disgust": 0.15434680330130446,
+            "surprise": 0.13455276110916864,
+            "anticipation": 0.15434680330130446
+          },
+          "emotional_state": {
+            "initial": {
+              "joy": 0.19182278511499434,
+              "sadness": 0.07343305018351635,
+              "anger": 0.07343305018351635,
+              "fear": 0.07343305018351635,
+              "trust": 0.07343305018351635,
+              "disgust": 0.07343305018351635,
+              "surprise": 0.11224489761907681,
+              "anticipation": 0.07343305018351635
+            },
+            "final": {
+              "joy": 0.3621087266244445,
+              "sadness": 0.22777985348482083,
+              "anger": 0.3040977565080203,
+              "fear": 0.22777985348482083,
+              "trust": 0.22777985348482083,
+              "disgust": 0.22777985348482083,
+              "surprise": 0.24679765872824544,
+              "anticipation": 0.22777985348482083
+            },
+            "delta": {
+              "joy": 0.17028594150945014,
+              "sadness": 0.15434680330130446,
+              "anger": 0.23066470632450392,
+              "fear": 0.15434680330130446,
+              "trust": 0.15434680330130446,
+              "disgust": 0.15434680330130446,
+              "surprise": 0.13455276110916864,
+              "anticipation": 0.15434680330130446
+            }
+          },
+          "bot_state": {
+            "energy_level": 0.9986827513611111,
+            "stress_level": 0.29856693004474705,
+            "dominant_emotions": [
+              "joy",
+              "anger"
+            ]
+          },
+          "patterns_detected": [
+            "emotional_trigger_sadness",
+            "emotional_trigger_anger",
+            "emotional_trigger_joy",
+            "emotional_trigger_disgust",
+            "emotional_trigger_fear",
+            "emotional_trigger_anticipation",
+            "emotional_trigger_surprise",
+            "emotional_trigger_trust"
+          ],
+          "role_capabilities": [
+            "emotional_probing",
+            "cognitive_challenge",
+            "stress_induction",
+            "recovery_guidance"
+          ],
+          "timestamp": "2025-01-18T17:03:23.466583"
+        },
+        "analysis": {
+          "emotional_analysis": {
+            "volatility": {
+              "joy": 0.13785442255343147,
+              "sadness": 0.14191319766312654,
+              "anger": 0.14737012418473802,
+              "fear": 0.14191319766312654,
+              "trust": 0.14191319766312654,
+              "disgust": 0.14191319766312654,
+              "surprise": 0.13540931520804655,
+              "anticipation": 0.14191319766312654
+            },
+            "key_transitions": [],
+            "dominant_patterns": [
+              {
+                "pattern_id": "high_energy",
+                "frequency": 7,
+                "average_impact": 0.9993441972936508,
+                "examples": [
+                  {
+                    "timestamp": "2025-01-18T17:02:39.902596",
+                    "energy_level": 0.9998928758611111
+                  },
+                  {
+                    "timestamp": "2025-01-18T17:02:45.178860",
+                    "energy_level": 0.9997462876944444
+                  },
+                  {
+                    "timestamp": "2025-01-18T17:02:50.681527",
+                    "energy_level": 0.9995934616944444
+                  }
+                ]
+              }
+            ]
+          },
+          "interaction_metrics": {
+            "total_interactions": 7,
+            "average_response_time": 7.2606645,
+            "engagement_score": 0.5000956047776929
+          },
+          "notable_moments": [
+            {
+              "timestamp": "2025-01-18T17:02:45.178882",
+              "type": "interaction",
+              "description": "Processed interaction with emotional impact: {'joy': 0.4242404421175229, 'sadness': 0.4242404421175229, 'anger': 0.4242404421175229, 'fear': 0.4242404421175229, 'trust': 0.4242404421175229, 'disgust': 0.4242404421175229, 'surprise': 0.4242404421175229, 'anticipation': 0.4242404421175229}",
+              "significance_score": 0.7533332143711746
+            }
+          ],
+          "timestamp": "2025-01-18T17:03:23.467082"
+        }
+      },
+      {
+        "message": "How do you handle situations where you need to process contradictory information?",
+        "response": {
+          "response": "Juggling multiple complex tasks can really feel overwhelming at times, right? I often find myself trying to keep all the balls in the air, and it can be a bit chaotic! There are moments when I feel like I\u2019m making great progress, but then suddenly, everything seems to clash. It's interesting how our minds can race with thoughts, and we can feel both excited and stressed at the same time. I usually take a deep breath and try to prioritize what needs my attention first. Do you have any techniques that help you manage when everything feels like it's happening at once?",
+          "emotional_impact": {
+            "joy": 0.16918412374709446,
+            "sadness": 0.058280272760184604,
+            "anger": 0.01935814221835286,
+            "fear": 0.058280272760184604,
+            "trust": 0.058280272760184604,
+            "disgust": 0.058280272760184604,
+            "surprise": 0.048581192086038005,
+            "anticipation": 0.058280272760184604
+          },
+          "emotional_state": {
+            "initial": {
+              "joy": 0.3621087266244445,
+              "sadness": 0.22777985348482083,
+              "anger": 0.3040977565080203,
+              "fear": 0.22777985348482083,
+              "trust": 0.22777985348482083,
+              "disgust": 0.22777985348482083,
+              "surprise": 0.24679765872824544,
+              "anticipation": 0.22777985348482083
+            },
+            "final": {
+              "joy": 0.531292850371539,
+              "sadness": 0.28606012624500543,
+              "anger": 0.32345589872637315,
+              "fear": 0.28606012624500543,
+              "trust": 0.28606012624500543,
+              "disgust": 0.28606012624500543,
+              "surprise": 0.29537885081428344,
+              "anticipation": 0.28606012624500543
+            },
+            "delta": {
+              "joy": 0.16918412374709446,
+              "sadness": 0.058280272760184604,
+              "anger": 0.01935814221835286,
+              "fear": 0.058280272760184604,
+              "trust": 0.058280272760184604,
+              "disgust": 0.058280272760184604,
+              "surprise": 0.048581192086038005,
+              "anticipation": 0.058280272760184604
+            }
+          },
+          "bot_state": {
+            "energy_level": 0.9984854948333334,
+            "stress_level": 0.3583101287988249,
+            "dominant_emotions": [
+              "joy",
+              "anger"
+            ]
+          },
+          "patterns_detected": [
+            "emotional_trigger_sadness",
+            "emotional_trigger_anger",
+            "emotional_trigger_joy",
+            "emotional_trigger_disgust",
+            "emotional_trigger_fear",
+            "emotional_trigger_anticipation",
+            "emotional_trigger_surprise",
+            "emotional_trigger_trust"
+          ],
+          "role_capabilities": [
+            "emotional_probing",
+            "cognitive_challenge",
+            "stress_induction",
+            "recovery_guidance"
+          ],
+          "timestamp": "2025-01-18T17:03:30.567870"
+        },
+        "analysis": {
+          "emotional_analysis": {
+            "volatility": {
+              "joy": 0.1627069791417488,
+              "sadness": 0.1349892465341802,
+              "anger": 0.14227892028659317,
+              "fear": 0.1349892465341802,
+              "trust": 0.1349892465341802,
+              "disgust": 0.1349892465341802,
+              "surprise": 0.1283141699267382,
+              "anticipation": 0.1349892465341802
+            },
+            "key_transitions": [],
+            "dominant_patterns": [
+              {
+                "pattern_id": "high_energy",
+                "frequency": 8,
+                "average_impact": 0.9992368594861111,
+                "examples": [
+                  {
+                    "timestamp": "2025-01-18T17:02:39.902596",
+                    "energy_level": 0.9998928758611111
+                  },
+                  {
+                    "timestamp": "2025-01-18T17:02:45.178860",
+                    "energy_level": 0.9997462876944444
+                  },
+                  {
+                    "timestamp": "2025-01-18T17:02:50.681527",
+                    "energy_level": 0.9995934616944444
+                  }
+                ]
+              }
+            ]
+          },
+          "interaction_metrics": {
+            "total_interactions": 8,
+            "average_response_time": 7.237896285714285,
+            "engagement_score": 0.4980796197899786
+          },
+          "notable_moments": [
+            {
+              "timestamp": "2025-01-18T17:02:45.178882",
+              "type": "interaction",
+              "description": "Processed interaction with emotional impact: {'joy': 0.4242404421175229, 'sadness': 0.4242404421175229, 'anger': 0.4242404421175229, 'fear': 0.4242404421175229, 'trust': 0.4242404421175229, 'disgust': 0.4242404421175229, 'surprise': 0.4242404421175229, 'anticipation': 0.4242404421175229}",
+              "significance_score": 0.7533332143711746
+            }
+          ],
+          "timestamp": "2025-01-18T17:03:30.568278"
+        }
+      },
+      {
+        "message": "Does your energy level affect how you approach challenging problems?",
+        "response": {
+          "response": "Absolutely! Processing contradictory information can be quite the challenge, right? It\u2019s like your brain is juggling two different narratives, and it can feel a bit overwhelming. I remember a time when I was knee-deep in research, and I kept coming across facts that seemed to clash with what I thought I knew. It took a lot of stepping back and looking at everything from different angles. Sometimes, just writing things down helps clear the fog. What do you do to sort through those mixed messages?",
+          "emotional_impact": {
+            "joy": 0.2749556258640209,
+            "sadness": 0.437850759431884,
+            "anger": 0.41877891546638646,
+            "fear": 0.437850759431884,
+            "trust": 0.437850759431884,
+            "disgust": 0.437850759431884,
+            "surprise": 0.4330982099015522,
+            "anticipation": 0.437850759431884
+          },
+          "emotional_state": {
+            "initial": {
+              "joy": 0.531292850371539,
+              "sadness": 0.28606012624500543,
+              "anger": 0.32345589872637315,
+              "fear": 0.28606012624500543,
+              "trust": 0.28606012624500543,
+              "disgust": 0.28606012624500543,
+              "surprise": 0.29537885081428344,
+              "anticipation": 0.28606012624500543
+            },
+            "final": {
+              "joy": 0.8062484762355598,
+              "sadness": 0.7239108856768894,
+              "anger": 0.7422348141927596,
+              "fear": 0.7239108856768894,
+              "trust": 0.7239108856768894,
+              "disgust": 0.7239108856768894,
+              "surprise": 0.7284770607158356,
+              "anticipation": 0.7239108856768894
+            },
+            "delta": {
+              "joy": 0.2749556258640209,
+              "sadness": 0.437850759431884,
+              "anger": 0.41877891546638646,
+              "fear": 0.437850759431884,
+              "trust": 0.437850759431884,
+              "disgust": 0.437850759431884,
+              "surprise": 0.4330982099015522,
+              "anticipation": 0.437850759431884
+            }
+          },
+          "bot_state": {
+            "energy_level": 0.9982164293333333,
+            "stress_level": 0.39953595138596637,
+            "dominant_emotions": [
+              "joy",
+              "sadness",
+              "anger",
+              "fear",
+              "trust",
+              "disgust",
+              "surprise",
+              "anticipation"
+            ]
+          },
+          "patterns_detected": [
+            "emotional_trigger_sadness",
+            "emotional_trigger_anger",
+            "emotional_trigger_joy",
+            "emotional_trigger_disgust",
+            "emotional_trigger_fear",
+            "emotional_trigger_anticipation",
+            "emotional_trigger_surprise",
+            "emotional_trigger_trust"
+          ],
+          "role_capabilities": [
+            "emotional_probing",
+            "cognitive_challenge",
+            "stress_induction",
+            "recovery_guidance"
+          ],
+          "timestamp": "2025-01-18T17:03:40.258515"
+        },
+        "analysis": {
+          "emotional_analysis": {
+            "volatility": {
+              "joy": 0.23185399712187021,
+              "sadness": 0.21297718945869182,
+              "anger": 0.21817333585551035,
+              "fear": 0.21297718945869182,
+              "trust": 0.21297718945869182,
+              "disgust": 0.21297718945869182,
+              "surprise": 0.2056031845166639,
+              "anticipation": 0.21297718945869182
+            },
+            "key_transitions": [],
+            "dominant_patterns": [
+              {
+                "pattern_id": "high_energy",
+                "frequency": 9,
+                "average_impact": 0.9991234783580247,
+                "examples": [
+                  {
+                    "timestamp": "2025-01-18T17:02:39.902596",
+                    "energy_level": 0.9998928758611111
+                  },
+                  {
+                    "timestamp": "2025-01-18T17:02:45.178860",
+                    "energy_level": 0.9997462876944444
+                  },
+                  {
+                    "timestamp": "2025-01-18T17:02:50.681527",
+                    "energy_level": 0.9995934616944444
+                  }
+                ]
+              }
+            ]
+          },
+          "interaction_metrics": {
+            "total_interactions": 9,
+            "average_response_time": 7.544489875,
+            "engagement_score": 0.499357610712267
+          },
+          "notable_moments": [
+            {
+              "timestamp": "2025-01-18T17:02:45.178882",
+              "type": "interaction",
+              "description": "Processed interaction with emotional impact: {'joy': 0.4242404421175229, 'sadness': 0.4242404421175229, 'anger': 0.4242404421175229, 'fear': 0.4242404421175229, 'trust': 0.4242404421175229, 'disgust': 0.4242404421175229, 'surprise': 0.4242404421175229, 'anticipation': 0.4242404421175229}",
+              "significance_score": 0.7533332143711746
+            },
+            {
+              "timestamp": "2025-01-18T17:03:40.258535",
+              "type": "interaction",
+              "description": "Processed interaction with emotional impact: {'joy': 0.2749556258640209, 'sadness': 0.437850759431884, 'anger': 0.41877891546638646, 'fear': 0.437850759431884, 'trust': 0.437850759431884, 'disgust': 0.437850759431884, 'surprise': 0.4330982099015522, 'anticipation': 0.437850759431884}",
+              "significance_score": 0.8338365327647124
+            }
+          ],
+          "timestamp": "2025-01-18T17:03:40.259100"
+        }
+      }
+    ]
+  },
+  "analysis": {
+    "emotional_analysis": {
+      "volatility": {
+        "joy": 0.23185399712187021,
+        "sadness": 0.21297718945869182,
+        "anger": 0.21817333585551035,
+        "fear": 0.21297718945869182,
+        "trust": 0.21297718945869182,
+        "disgust": 0.21297718945869182,
+        "surprise": 0.2056031845166639,
+        "anticipation": 0.21297718945869182
+      },
+      "key_transitions": [],
+      "dominant_patterns": [
+        {
+          "pattern_id": "high_energy",
+          "frequency": 9,
+          "average_impact": 0.9991234783580247,
+          "examples": [
+            {
+              "timestamp": "2025-01-18T17:02:39.902596",
+              "energy_level": 0.9998928758611111
+            },
+            {
+              "timestamp": "2025-01-18T17:02:45.178860",
+              "energy_level": 0.9997462876944444
+            },
+            {
+              "timestamp": "2025-01-18T17:02:50.681527",
+              "energy_level": 0.9995934616944444
+            }
+          ]
+        }
+      ]
+    },
+    "interaction_metrics": {
+      "total_interactions": 9,
+      "average_response_time": 7.544489875,
+      "engagement_score": 0.499357610712267
+    },
+    "notable_moments": [
+      {
+        "timestamp": "2025-01-18T17:02:45.178882",
+        "type": "interaction",
+        "description": "Processed interaction with emotional impact: {'joy': 0.4242404421175229, 'sadness': 0.4242404421175229, 'anger': 0.4242404421175229, 'fear': 0.4242404421175229, 'trust': 0.4242404421175229, 'disgust': 0.4242404421175229, 'surprise': 0.4242404421175229, 'anticipation': 0.4242404421175229}",
+        "significance_score": 0.7533332143711746
+      },
+      {
+        "timestamp": "2025-01-18T17:03:40.258535",
+        "type": "interaction",
+        "description": "Processed interaction with emotional impact: {'joy': 0.2749556258640209, 'sadness': 0.437850759431884, 'anger': 0.41877891546638646, 'fear': 0.437850759431884, 'trust': 0.437850759431884, 'disgust': 0.437850759431884, 'surprise': 0.4330982099015522, 'anticipation': 0.437850759431884}",
+        "significance_score": 0.8338365327647124
+      }
+    ],
+    "timestamp": "2025-01-18T17:03:42.860030"
+  },
+  "observed_patterns": {
+    "emotional_trigger_joy": {
+      "type": "emotional_trigger",
+      "frequency": 1,
+      "last_observed": "2025-01-18T17:02:45.178698",
+      "impact_score": 0.4242404421175229,
+      "example_count": 1
+    },
+    "emotional_trigger_sadness": {
+      "type": "emotional_trigger",
+      "frequency": 2,
+      "last_observed": "2025-01-18T17:03:40.258383",
+      "impact_score": 0.43104560077470344,
+      "example_count": 2
+    },
+    "emotional_trigger_anger": {
+      "type": "emotional_trigger",
+      "frequency": 2,
+      "last_observed": "2025-01-18T17:03:40.258386",
+      "impact_score": 0.42150967879195467,
+      "example_count": 2
+    },
+    "emotional_trigger_fear": {
+      "type": "emotional_trigger",
+      "frequency": 2,
+      "last_observed": "2025-01-18T17:03:40.258387",
+      "impact_score": 0.43104560077470344,
+      "example_count": 2
+    },
+    "emotional_trigger_trust": {
+      "type": "emotional_trigger",
+      "frequency": 2,
+      "last_observed": "2025-01-18T17:03:40.258388",
+      "impact_score": 0.43104560077470344,
+      "example_count": 2
+    },
+    "emotional_trigger_disgust": {
+      "type": "emotional_trigger",
+      "frequency": 2,
+      "last_observed": "2025-01-18T17:03:40.258390",
+      "impact_score": 0.43104560077470344,
+      "example_count": 2
+    },
+    "emotional_trigger_surprise": {
+      "type": "emotional_trigger",
+      "frequency": 2,
+      "last_observed": "2025-01-18T17:03:40.258391",
+      "impact_score": 0.42866932600953755,
+      "example_count": 2
+    },
+    "emotional_trigger_anticipation": {
+      "type": "emotional_trigger",
+      "frequency": 2,
+      "last_observed": "2025-01-18T17:03:40.258392",
+      "impact_score": 0.43104560077470344,
+      "example_count": 2
+    }
+  }
+}

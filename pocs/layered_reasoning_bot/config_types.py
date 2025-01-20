@@ -2,8 +2,8 @@
 Shared configuration types for the layered reasoning bot.
 """
 
-from dataclasses import dataclass
-from typing import Dict, List
+from dataclasses import dataclass, field
+from typing import Dict, List, Set
 import yaml
 
 
@@ -15,6 +15,15 @@ class ModelConfig:
     temperature: float
     max_tokens: int
     tone_matching: bool = False
+
+
+@dataclass
+class AIRoleConfig:
+    """Configuration for AI participant roles."""
+
+    description: str
+    model: ModelConfig
+    capabilities: List[str]
 
 
 @dataclass
@@ -40,6 +49,7 @@ class BotConfig:
     """Main configuration for the bot."""
 
     models: Dict[str, ModelConfig]
+    ai_roles: Dict[str, AIRoleConfig]
     strategy: StrategyConfig
     memory: MemoryConfig
     features: Dict[str, bool]
@@ -50,6 +60,7 @@ class BotConfig:
         with open(config_path, "r") as f:
             config_dict = yaml.safe_load(f)
 
+        # Load core model configs
         models = {
             "intent_recognition": ModelConfig(
                 **config_dict["models"]["intent_recognition"]
@@ -61,8 +72,24 @@ class BotConfig:
                 **config_dict["models"]["feature_extraction"]
             ),
         }
+
+        # Load AI role configs
+        ai_roles = {}
+        for role_name, role_config in config_dict["ai_roles"].items():
+            ai_roles[role_name] = AIRoleConfig(
+                description=role_config["description"],
+                model=ModelConfig(**role_config["model"]),
+                capabilities=role_config["capabilities"],
+            )
+
         strategy = StrategyConfig(**config_dict["models"]["strategy_formation"])
         memory = MemoryConfig(**config_dict["memory"])
         features = config_dict["features"]
 
-        return cls(models=models, strategy=strategy, memory=memory, features=features)
+        return cls(
+            models=models,
+            ai_roles=ai_roles,
+            strategy=strategy,
+            memory=memory,
+            features=features,
+        )

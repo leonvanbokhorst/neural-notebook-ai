@@ -7,10 +7,14 @@ Implements complex emotional state handling for more human-like bot behavior.
 
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-from typing import Dict, List, Set, Optional, Tuple
+from typing import Dict, List, Set, Optional, Tuple, Any
 import random
 import numpy as np
 from collections import defaultdict
+import logging
+
+logger = logging.getLogger(__name__)
+
 from emotional_complexity import (
     ContrarianBehavior,
     AssociativeMemoryBank,
@@ -103,6 +107,19 @@ class EmotionalState:
         # Track recent emotional experiences for conviction strength
         self.recent_experiences: List[float] = []
         self.experience_window = timedelta(hours=24)
+
+        # Add adaptation flag
+        self._adaptation_enabled = True
+
+    def disable_adaptation(self) -> None:
+        """Disable emotional adaptation for baseline testing."""
+        self._adaptation_enabled = False
+        logger.info("Emotional adaptation disabled")
+
+    def enable_adaptation(self) -> None:
+        """Enable emotional adaptation."""
+        self._adaptation_enabled = True
+        logger.info("Emotional adaptation enabled")
 
     def update_state(self, triggers: Dict[str, float], context: str = "") -> None:
         """Update emotional state based on triggers and context."""

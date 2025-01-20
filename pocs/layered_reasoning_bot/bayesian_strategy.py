@@ -12,6 +12,9 @@ import random
 from typing import Dict, List, Optional, Tuple, Any
 from litellm import completion
 from config_types import ModelConfig
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass
@@ -105,6 +108,9 @@ class BayesianStrategySelector:
 
         # Interaction history for strategy effectiveness
         self.history: List[Tuple[str, float]] = []
+
+        # Add learning flag
+        self._learning_enabled = True
 
     def _call_llm_for_features(self, text: str) -> Dict[str, float]:
         """Use LLM to extract feature scores."""
@@ -374,3 +380,26 @@ Only respond with the JSON, no other text."""
             "strategy_performance": strategy_scores,
             "total_interactions": len(self.history),
         }
+
+    def disable_learning(self) -> None:
+        """Disable strategy learning for baseline testing."""
+        self._learning_enabled = False
+        logger.info("Strategy learning disabled")
+
+    def enable_learning(self) -> None:
+        """Enable strategy learning."""
+        self._learning_enabled = True
+        logger.info("Strategy learning enabled")
+
+    def update_strategy_effectiveness(
+        self,
+        strategy: str,
+        effectiveness: float,
+        context: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Update the effectiveness score for a strategy."""
+        if not self._learning_enabled:
+            logger.debug(
+                "Strategy learning is disabled - maintaining fixed probabilities"
+            )
+            return

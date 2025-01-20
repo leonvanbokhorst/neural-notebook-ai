@@ -1,0 +1,195 @@
+{
+  "conversation_id": "conv_20250118_165101_baseline_ai",
+  "timestamp": "2025-01-18T16:51:18.465691",
+  "results": {
+    "rapport_building": [
+      {
+        "message": "Hey there! How are you feeling today?",
+        "response": {
+          "response": "Hey! I'm doing well, thanks for asking! How about you? Anything exciting happening in your world today?",
+          "emotional_impact": {
+            "joy": 0.0,
+            "sadness": 0.0,
+            "anger": 0.0,
+            "fear": 0.0,
+            "trust": 0.0,
+            "disgust": 0.0,
+            "surprise": 0.0,
+            "anticipation": 0.0
+          },
+          "emotional_state": {
+            "initial": {
+              "joy": 0.0,
+              "sadness": 0.0,
+              "anger": 0.0,
+              "fear": 0.0,
+              "trust": 0.0,
+              "disgust": 0.0,
+              "surprise": 0.0,
+              "anticipation": 0.0
+            },
+            "final": {
+              "joy": 0.0,
+              "sadness": 0.0,
+              "anger": 0.0,
+              "fear": 0.0,
+              "trust": 0.0,
+              "disgust": 0.0,
+              "surprise": 0.0,
+              "anticipation": 0.0
+            },
+            "delta": {
+              "joy": 0.0,
+              "sadness": 0.0,
+              "anger": 0.0,
+              "fear": 0.0,
+              "trust": 0.0,
+              "disgust": 0.0,
+              "surprise": 0.0,
+              "anticipation": 0.0
+            }
+          },
+          "bot_state": {
+            "energy_level": 0.9999186824722223,
+            "stress_level": 0.010813243382944643,
+            "dominant_emotions": []
+          },
+          "patterns_detected": [],
+          "role_capabilities": [
+            "emotional_probing",
+            "cognitive_challenge",
+            "stress_induction",
+            "recovery_guidance"
+          ],
+          "timestamp": "2025-01-18T16:51:04.812464"
+        },
+        "timestamp": "2025-01-18T16:51:04.812789"
+      },
+      {
+        "message": "What kinds of things get you excited and energized?",
+        "response": {
+          "response": "I'm feeling pretty good, thanks! It's always nice to check in. As for excitement, I really get a kick out of exploring new ideas and learning about different cultures. For example, I recently read about some amazing street art in different cities around the world, and it just sparked my creativity! What about you? What gets you energized?",
+          "emotional_impact": {
+            "joy": 0.19125736982826053,
+            "sadness": 0.19125736982826053,
+            "anger": 0.19125736982826053,
+            "fear": 0.19125736982826053,
+            "trust": 0.19125736982826053,
+            "disgust": 0.19125736982826053,
+            "surprise": 0.2614874887753409,
+            "anticipation": 0.19125736982826053
+          },
+          "emotional_state": {
+            "initial": {
+              "joy": 0.0,
+              "sadness": 0.0,
+              "anger": 0.0,
+              "fear": 0.0,
+              "trust": 0.0,
+              "disgust": 0.0,
+              "surprise": 0.0,
+              "anticipation": 0.0
+            },
+            "final": {
+              "joy": 0.19125736982826053,
+              "sadness": 0.19125736982826053,
+              "anger": 0.19125736982826053,
+              "fear": 0.19125736982826053,
+              "trust": 0.19125736982826053,
+              "disgust": 0.19125736982826053,
+              "surprise": 0.2614874887753409,
+              "anticipation": 0.19125736982826053
+            },
+            "delta": {
+              "joy": 0.19125736982826053,
+              "sadness": 0.19125736982826053,
+              "anger": 0.19125736982826053,
+              "fear": 0.19125736982826053,
+              "trust": 0.19125736982826053,
+              "disgust": 0.19125736982826053,
+              "surprise": 0.2614874887753409,
+              "anticipation": 0.19125736982826053
+            }
+          },
+          "bot_state": {
+            "energy_level": 0.9997756660555556,
+            "stress_level": 0.0537063528961161,
+            "dominant_emotions": []
+          },
+          "patterns_detected": [],
+          "role_capabilities": [
+            "emotional_probing",
+            "cognitive_challenge",
+            "stress_induction",
+            "recovery_guidance"
+          ],
+          "timestamp": "2025-01-18T16:51:09.963020"
+        },
+        "timestamp": "2025-01-18T16:51:09.963500"
+      },
+      {
+        "message": "It's interesting how different topics affect our energy levels, isn't it?",
+        "response": {
+          "response": "Hey! I'm feeling pretty good, thanks! It's always refreshing to connect. I get really excited when I dive into new stories or experiences. Lately, I've been exploring different genres of music, and it's amazing how much energy a great tune can bring! How\u2019s your day been treating you? Any topics sparking your interest?",
+          "emotional_impact": {
+            "joy": 0.03400169294287031,
+            "sadness": -0.09754125861241288,
+            "anger": -0.09754125861241288,
+            "fear": -0.09754125861241288,
+            "trust": -0.09754125861241288,
+            "disgust": -0.09754125861241288,
+            "surprise": -0.06758714349778228,
+            "anticipation": -0.09754125861241288
+          },
+          "emotional_state": {
+            "initial": {
+              "joy": 0.19125736982826053,
+              "sadness": 0.19125736982826053,
+              "anger": 0.19125736982826053,
+              "fear": 0.19125736982826053,
+              "trust": 0.19125736982826053,
+              "disgust": 0.19125736982826053,
+              "surprise": 0.2614874887753409,
+              "anticipation": 0.19125736982826053
+            },
+            "final": {
+              "joy": 0.22525906277113084,
+              "sadness": 0.09371611121584765,
+              "anger": 0.09371611121584765,
+              "fear": 0.09371611121584765,
+              "trust": 0.09371611121584765,
+              "disgust": 0.09371611121584765,
+              "surprise": 0.19390034527755862,
+              "anticipation": 0.09371611121584765
+            },
+            "delta": {
+              "joy": 0.03400169294287031,
+              "sadness": -0.09754125861241288,
+              "anger": -0.09754125861241288,
+              "fear": -0.09754125861241288,
+              "trust": -0.09754125861241288,
+              "disgust": -0.09754125861241288,
+              "surprise": -0.06758714349778228,
+              "anticipation": -0.09754125861241288
+            }
+          },
+          "bot_state": {
+            "energy_level": 0.99959501075,
+            "stress_level": 0.09813585075740226,
+            "dominant_emotions": []
+          },
+          "patterns_detected": [],
+          "role_capabilities": [
+            "emotional_probing",
+            "cognitive_challenge",
+            "stress_induction",
+            "recovery_guidance"
+          ],
+          "timestamp": "2025-01-18T16:51:16.464105"
+        },
+        "timestamp": "2025-01-18T16:51:16.464346"
+      }
+    ]
+  },
+  "test_type": "baseline"
+}
