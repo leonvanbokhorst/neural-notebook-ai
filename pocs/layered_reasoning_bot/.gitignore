@@ -1,0 +1,12 @@
+# Log and result directories
+interaction_logs/
+observer_logs/
+test_results/
+baseline_results/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# OS files
+.DS_Store 
