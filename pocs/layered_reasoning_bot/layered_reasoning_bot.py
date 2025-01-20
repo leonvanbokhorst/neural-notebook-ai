@@ -606,8 +606,12 @@ class LayeredReasoningBot:
     """Main bot implementation with layered reasoning capabilities."""
 
     def __init__(self, config_path: str):
+        # Load configuration
         self.config = BotConfig.from_yaml(config_path)
+
+        # Initialize components
         self.memory = ConversationMemory(self.config.memory)
+        self.emotional_state = EmotionalState()
         self.strategy_selector = BayesianStrategySelector(
             self.config.strategy.strategy_options,
             self.config.models["feature_extraction"],
@@ -615,27 +619,10 @@ class LayeredReasoningBot:
         self.response_evaluator = ResponseEvaluator(
             self.config.models["response_generation"]
         )
-        self.emotional_state = EmotionalState()  # Add emotional state
 
-        # Set up detailed logging
+        # Set up logging
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.INFO)
-
-        # Add file handler for detailed logs
-        log_file = SCRIPT_DIR / "detailed_conversation.log"
-        file_handler = logging.FileHandler(log_file)
-        file_handler.setLevel(logging.INFO)
-
-        # set terminal handler
-        terminal_handler = logging.StreamHandler()
-        terminal_handler.setLevel(logging.ERROR)
-
-        # Use a simpler formatter that doesn't require extra fields
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s\n"
-        )
-        file_handler.setFormatter(formatter)
-        self.logger.addHandler(file_handler)
 
     def _log_step(self, step: str, details: Dict[str, Any]) -> None:
         """Log a processing step with detailed information."""
@@ -789,7 +776,11 @@ class LayeredReasoningBot:
         return final_score
 
     def generate_response(
-        self, user_input: str, intent_analysis: Dict[str, Any], strategy: str
+        self,
+        user_input: str,
+        intent_analysis: Dict[str, Any],
+        strategy: str,
+        model_config: Optional[ModelConfig] = None,
     ) -> str:
         """Generate the final response using the chosen strategy and emotional state."""
         # Get conversation stage and context
@@ -854,9 +845,11 @@ class LayeredReasoningBot:
         
         Just give the response directly, no meta-text or explanations."""
 
-        # Get streaming response
+        # Get streaming response using provided model config or default
         response_stream = self._call_model(
-            prompt, self.config.models["response_generation"], stream=True
+            prompt,
+            model_config or self.config.models["response_generation"],
+            stream=True,
         )
 
         # Stream and collect the full response
@@ -882,8 +875,15 @@ class LayeredReasoningBot:
 
         return full_response
 
-    def process_message(self, user_input: str) -> str:
-        """Process a user message through all reasoning layers."""
+    def process_message(
+        self, user_input: str, model_config: Optional[ModelConfig] = None
+    ) -> str:
+        """Process a user message through all reasoning layers.
+
+        Args:
+            user_input: The message from the user
+            model_config: Optional model configuration to override default response generation model
+        """
         try:
             # Check if bot needs a break
             if (
@@ -949,10 +949,16 @@ class LayeredReasoningBot:
                         "dominant_emotions": self.emotional_state.get_dominant_emotions(),
                         "emotional_influence": self.emotional_state.get_emotional_influence(),
                     },
+                    "model_config": (
+                        model_config.model_name if model_config else "default"
+                    ),
                 },
             )
 
-            response = self.generate_response(user_input, intent_analysis, strategy)
+            # Use provided model config or default
+            response = self.generate_response(
+                user_input, intent_analysis, strategy, model_config=model_config
+            )
 
             # Evaluate response quality
             success_score, dimension_scores = self.response_evaluator.evaluate_response(

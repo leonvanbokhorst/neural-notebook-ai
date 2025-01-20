@@ -7,15 +7,15 @@ data_dir: "data/"
 output_dir: "outputs/"
 model_dir: "models/"
 
-# Model Configuration
+# Core Bot Model Configuration
 models:
   intent_recognition:
-    model_name: "deepseek/deepseek-chat"
+    model_name: "gpt-4o-mini" #"deepseek/deepseek-chat"
     temperature: 0.5
     max_tokens: 300
   
   feature_extraction:
-    model_name: "deepseek/deepseek-chat"
+    model_name: "gpt-4o-mini" #"deepseek/deepseek-chat"
     temperature: 0.1
     max_tokens: 150
   
@@ -29,10 +29,38 @@ models:
       - reframing
   
   response_generation:
-    model_name: "deepseek/deepseek-chat"
+    model_name: "gpt-4o-mini" #"deepseek/deepseek-chat"
     temperature: 0.8
     max_tokens: 500
     tone_matching: true
+
+# AI Role Configurations
+ai_roles:
+  initiator:
+    description: "Primary conversation driver, focuses on emotional probing and engagement"
+    model:
+      model_name: "gpt-4o-mini"  # More capable model for complex interactions
+      temperature: 0.7
+      max_tokens: 500
+      tone_matching: true
+    capabilities:
+      - emotional_probing
+      - cognitive_challenge
+      - stress_induction
+      - recovery_guidance
+  
+  observer:
+    description: "Analyzes interactions and emotional patterns"
+    model:
+      model_name: "gpt-4o-mini"  # High reasoning capability for analysis
+      temperature: 0.2  # Lower temperature for more analytical responses
+      max_tokens: 1000  # Longer responses for detailed analysis
+      tone_matching: false
+    capabilities:
+      - pattern_recognition
+      - emotional_analysis
+      - behavioral_prediction
+      - insight_generation
 
 # Memory Configuration
 memory:
